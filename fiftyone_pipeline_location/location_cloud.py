@@ -35,13 +35,13 @@ class LocationCloud(CloudEngine):
 
         super(LocationCloud, self).__init__()
 
-        self.dataKey = "location"
+        self.datakey = "location"
 
         if "locationProvider" in settings:
             locationProvider = settings["locationProvider"]
             if locationProvider == "fiftyonedegrees":
-                self.dataKey = "location"
+                self.datakey = "location"
             elif locationProvider == "digitalelement":
-                self.dataKey = "location_digitalelement"
+                self.datakey = "location_digitalelement"
             else:
                 raise Exception("The location provider " + locationProvider + " was not recognized.")

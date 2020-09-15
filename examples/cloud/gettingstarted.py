@@ -57,22 +57,22 @@ else:
     # We create a FlowData object from the pipeline
     # this is used to add evidence to and then process
 
-    flowData = pipeline.createFlowData()
+    flowData = pipeline.create_flowdata()
 
     # Here we add a longitude and latitude as evidence
 
     latitude = "51.458048"
     longitude = "-0.9822207999999999"
 
-    flowData.evidence.set("query.51D_Pos_latitude", latitude)
-    flowData.evidence.set("query.51D_Pos_longitude", longitude)
+    flowData.evidence.add("query.51D_Pos_latitude", latitude)
+    flowData.evidence.add("query.51D_Pos_longitude", longitude)
 
     # Now we process the FlowData
 
     flowData.process()
 
     print("What country is at coordinates:" + longitude + ", " + latitude + "?")
-    if flowData.location.country.hasValue():
+    if flowData.location.country.has_value():
         print(flowData.location.country.value())
     else:
-        print(flowData.location.noValueMessage)
+        print(flowData.location.no_value_message())

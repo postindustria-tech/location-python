@@ -50,7 +50,7 @@ class LocationPipelineBuilder(PipelineBuilder):
         location = LocationCloud(settings)
 
         if "cache" in settings:
-            location.setCache(settings["cache"])
+            location.set_cache(settings["cache"])
         
         self.add(location)
 
