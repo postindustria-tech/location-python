@@ -29,7 +29,7 @@
 
 """
 
-from fiftyone_pipeline_location.location_pipelinebuilder import LocationPipelineBuilder
+from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
 from fiftyone_pipeline_core.web import webevidence
 import json
 

@@ -34,7 +34,7 @@ United Kingdom
 
 """
 
-from fiftyone_pipeline_location.location_pipelinebuilder import LocationPipelineBuilder
+from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
 
 # First create the device detection pipeline with the desired settings.
 
