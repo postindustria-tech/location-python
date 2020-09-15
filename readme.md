@@ -4,7 +4,7 @@
 [Pipeline Documentation](https://docs.51degrees.com?utm_source=github&utm_medium=repository&utm_content=documentation&utm_campaign=python-open-source "advanced developer documentation")
 
 ## Introduction
-This project contains 51Degrees Device Detection engines that can be used with the [Pipeline API](https://github.com/51Degrees/pipeline-node).
+This project contains 51Degrees Device Detection engines that can be used with the Pipeline API.
 
 The Pipeline is a generic web request intelligence and data processing solution with the ability to add a range of 51Degrees and/or custom plug ins (Engines) 
 
