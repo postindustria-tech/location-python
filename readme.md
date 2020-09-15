@@ -1,5 +1,5 @@
 ![51Degrees](https://51degrees.com/DesktopModules/FiftyOne/Distributor/Logo.ashx?utm_source=github&utm_medium=repository&utm_content=readme_main&utm_campaign=python-open-source) 
-**v4 Device Detection Python**
+**v4 Location Python**
 
 [Pipeline Documentation](https://docs.51degrees.com?utm_source=github&utm_medium=repository&utm_content=documentation&utm_campaign=python-open-source "advanced developer documentation")
 
