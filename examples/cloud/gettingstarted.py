@@ -20,19 +20,17 @@
 # such notice(s) shall fulfill the requirements of that article.
 # ********************************************************************
 
-"""
-@example cloud/gettingStarted.py
 
-@include{doc} example-require-resourcekey.txt
-
-Expected output:
-```
-What country is at coordinates:-0.9822207999999999, 51.458048?
-United Kingdom
-
-```
-
-"""
+## @example cloud/gettingStarted.py
+# 
+# @include{doc} example-require-resourcekey.txt
+# 
+# Expected output:
+# ```
+# What country is at coordinates:-0.9822207999999999, 51.458048?
+# United Kingdom
+# 
+# ```
 
 from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
 

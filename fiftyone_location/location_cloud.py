@@ -22,15 +22,13 @@
 
 from fiftyone_pipeline_cloudrequestengine.cloudengine import CloudEngine
 
-
-"""
- The deviceDetction cloud engine requires the 51Degrees
- cloudRequestEngine to be placed in a pipeline before it.
- It takes that raw JSON response and parses it to extract the
- device part. It also uses this data to generate a list of properties
-"""
 class LocationCloud(CloudEngine):
-
+    """!
+    The location cloud engine requires the 51Degrees
+    cloudRequestEngine to be placed in a pipeline before it.
+    It takes that raw JSON response and parses it to extract the
+    location part. It also uses this data to generate a list of properties
+    """
     def __init__(self, settings = {}):
 
         super(LocationCloud, self).__init__()

@@ -24,21 +24,21 @@ from fiftyone_pipeline_core.pipelinebuilder import PipelineBuilder
 from fiftyone_pipeline_cloudrequestengine.cloudrequestengine import CloudRequestEngine
 from .location_cloud import LocationCloud
 
-"""
- # The Device Detection Pipeline Builder allows you to easily
- # Construct a pipeline containing the device detection cloud engine
- # 
- #  Internal function for getting evidence keys used by cloud engines
- #  
- #   @type settings: dict
- #   @param settings: Should contain a `resourceKey` and optionally a `cloudEndPoint` url
- #   if overriding the default one. An optional cache can be added by passing an instance of 
- #   the DataKeyedCache class as a `cache` setting 
- #   The pipeline builder can also contain JavaScriptBuilder settings
- #   see the documentation for the base PipelineBuilder and JavaScriptBuilder class 
- #   
-"""
 class LocationPipelineBuilder(PipelineBuilder):
+    """!
+    The Location Pipeline Builder allows you to easily
+    Construct a pipeline containing the location cloud engine
+    
+     Internal function for getting evidence keys used by cloud engines
+     
+      @type settings: dict
+      @param settings: Should contain a `resourceKey` and optionally a `cloudEndPoint` url
+      if overriding the default one. An optional cache can be added by passing an instance of 
+      the DataKeyedCache class as a `cache` setting 
+      The pipeline builder can also contain JavaScriptBuilder settings
+      see the documentation for the base PipelineBuilder and JavaScriptBuilder class 
+      
+    """
     def __init__(self, settings):
 
         super(LocationPipelineBuilder, self).__init__(settings)
