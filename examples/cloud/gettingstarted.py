@@ -21,7 +21,7 @@
 # ********************************************************************
 
 
-## @example cloud/gettingStarted.py
+## @example cloud/gettingstarted.py
 # 
 # @include{doc} example-require-resourcekey.txt
 # 
