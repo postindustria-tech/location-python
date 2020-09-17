@@ -20,14 +20,11 @@
 # such notice(s) shall fulfill the requirements of that article.
 # ********************************************************************
 
-"""
-@example cloud/web.py
-
-@include{doc} example-web-integration.txt
-
-@include{doc} example-require-resourcekey.txt
-
-"""
+## @example cloud/web.py
+# 
+# @include{doc} example-web-integration.txt
+# 
+# @include{doc} example-require-resourcekey.txt
 
 from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
 from fiftyone_pipeline_core.web import webevidence
