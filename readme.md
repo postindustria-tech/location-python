@@ -18,7 +18,7 @@ The Pipeline is a generic web request intelligence and data processing solution 
 
 ### From PyPI
 
-`pip install fiftyone_devicedetection`
+`pip install fiftyone_location`
 
 You can confirm this is working with the following micro-example.
 
