@@ -1,0 +1,94 @@
+# Python package
+# Build and test a Python package on multiple Python versions and Platforms.
+name: Build and Test Python Location
+
+pr:
+- master
+- develop
+- release/*
+- hotfix/*
+
+trigger: none
+
+variables:
+  - group: InternalKeys
+
+strategy:
+  matrix:
+    linux-Python3.6:
+      imageName: 'ubuntu-18.04'
+      pythonVersion: '3.6'
+    mac-Python3.9:
+      imageName: 'macos-latest'
+      pythonVersion: '3.9'
+    windows-Python3.6:
+      imageName: 'windows-latest'
+      pythonVersion: '3.6'
+
+pool:
+  vmImage: $(imageName)
+  
+steps:
+  
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(pythonVersion)'
+    architecture: x64
+    addToPath: True
+  displayName: 'Use Python $(pythonVersion)'
+
+    
+- script: |
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
+    python -m pip install pylint
+    python -m pip install unittest-xml-reporting
+    python -m pip install coverage
+    python -m pip install certifi
+    python -m pip install jsmin
+    python -m pip install chevron
+    python -m pip install cachetools
+  displayName: 'Install dependencies'
+
+- script: |
+
+    python -m pip install fiftyone_pipeline_cloudrequestengine
+    python -m pip install fiftyone_pipeline_core
+    python -m pip install fiftyone_pipeline_engines
+
+  displayName: 'Install Pipeline Dependencies'
+
+- script: |
+    python -m pip install ./
+  displayName: 'Install Location Package'
+
+- script: |
+    pylint --rcfile=.pylintrc ./fiftyone_location
+  displayName: 'Analyze Python Code Using Pylint'
+
+- bash: |
+    export resource_key="$(SuperResourceKey)"
+    export FOD_CLOUD_API_URL="$(FOD_CLOUD_API_URL)"
+    echo 'Exporting resource key for cloud tests, resource_key=$(SuperResourceKey)'
+    echo 'Exporting endpoint for cloud tests, FOD_CLOUD_API_URL=$(FOD_CLOUD_API_URL)'
+
+    coverage run -m xmlrunner discover -s tests -p test*.py -o test-results
+    coverage xml
+  condition: not(contains(variables['imageName'], 'windows'))
+  displayName: 'Run Tests'
+ 
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: '**/test-results/**'
+    testRunTitle: 'Publish test results for Python $(pythonVersion)'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    mergeTestResults: false
+    failTaskOnFailedTests: true
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'

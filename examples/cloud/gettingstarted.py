@@ -38,10 +38,14 @@ from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
 
 # You need to create a resource key at https://configure.51degrees.com
 # and paste it into the code, replacing !!YOUR_RESOURCE_KEY!! below.
+# Alternatively, add a resource_key environment variable
+import os
+if "resource_key" in os.environ:
+    resource_key = os.environ["resource_key"]
+else:
+    resource_key = "!!YOUR_RESOURCE_KEY!!"
 
-resourceKey = "!!YOUR_RESOURCE_KEY!!"
-
-if resourceKey == "!!YOUR_RESOURCE_KEY!!":
+if resource_key == "!!YOUR_RESOURCE_KEY!!":
     print("""
     You need to create a resource key at
     https://configure.51degrees.com and paste it into the code,
@@ -50,27 +54,27 @@ if resourceKey == "!!YOUR_RESOURCE_KEY!!":
     """)
 else:
 
-    pipeline = LocationPipelineBuilder({"resourceKey": resourceKey}).build()
+    pipeline = LocationPipelineBuilder(resource_key=resource_key).build()
 
     # We create a FlowData object from the pipeline
     # this is used to add evidence to and then process
 
-    flowData = pipeline.create_flowdata()
+    flow_data = pipeline.create_flowdata()
 
     # Here we add a longitude and latitude as evidence
 
     latitude = "51.458048"
     longitude = "-0.9822207999999999"
 
-    flowData.evidence.add("query.51D_Pos_latitude", latitude)
-    flowData.evidence.add("query.51D_Pos_longitude", longitude)
+    flow_data.evidence.add("query.51D_Pos_latitude", latitude)
+    flow_data.evidence.add("query.51D_Pos_longitude", longitude)
 
     # Now we process the FlowData
 
-    flowData.process()
+    flow_data.process()
 
     print("What country is at coordinates:" + longitude + ", " + latitude + "?")
-    if flowData.location.country.has_value():
-        print(flowData.location.country.value())
+    if flow_data.location.country.has_value():
+        print(flow_data.location.country.value())
     else:
-        print(flowData.location.no_value_message())
+        print(flow_data.location.no_value_message())

@@ -3,7 +3,7 @@
 ![51Degrees](https://51degrees.com/DesktopModules/FiftyOne/Distributor/Logo.ashx?utm_source=github&utm_medium=repository&utm_content=readme_main&utm_campaign=python-open-source) 
 **v4 Location Python**
 
-[Pipeline Documentation](https://51degrees.com/documentation/4.1/index.html "Complete documentation")
+[Developer Documentation](https://51degrees.com/location-python/index.html "Developer documentation")
 
 ## Introduction
 
@@ -13,8 +13,9 @@ The Pipeline is a generic web request intelligence and data processing solution 
 
 ## Requirements
 
-* Python 2.7 or Python 3
+* Python 3.5+
 * The `flask` python library to run the web examples
+* The `gitversion` python library using `pip install gitversion`
 
 ## Installation and Examples
 
@@ -39,20 +40,21 @@ fd.process()
 print(fd.location.town.value())
 ```
 
-For more in-depth examples, check out the [examples](https://51degrees.com/documentation/4.1/_examples__reverse_geocoding__index.html) page in the documentation.
+For more in-depth examples, check out the [examples](https://51degrees.com/documentation/4.2/_examples__reverse_geocoding__index.html) page in the documentation.
 
 ### From GitHub
 
 If you've cloned the GitHub repository, you will be able to run the examples directly:
 
-`python3 -m examples.cloud.gettingstarted`
+`python -m examples.cloud.gettingstarted`
 
-To run the web example:
+To run the web example navigate into Examples folder:
 
 #### Linux
 
-Execute `export FLASK_APP=` with the name of the web example file, then `flask run`.
+Execute `export FLASK_APP=web` where `web` is the example file, and start your application via `flask run`.
 
 #### Windows
 
-Execute `$env:FLASK_APP = "x"` with the name of the example file, then `flask run`.
+Execute `$env:FLASK_APP = "web"` where `web` is the example file, and start your application via `flask run`.
+
