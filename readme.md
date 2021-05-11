@@ -21,7 +21,7 @@ The Pipeline is a generic web request intelligence and data processing solution 
 
 ### From PyPI
 
-`pip install fiftyone_location`
+`pip install fiftyone-location`
 
 You can confirm this is working with the following micro-example.
 
@@ -32,7 +32,7 @@ You can confirm this is working with the following micro-example.
 
 ```
 from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
-pipeline = LocationPipelineBuilder({"resourceKey": "YOUR_RESOURCE_KEY"}).build()
+pipeline = LocationPipelineBuilder(resource_key="YOUR_RESOURCE_KEY").build()
 fd = pipeline.create_flowdata()
 fd.evidence.add("query.51D_Pos_latitude", "40.730610")
 fd.evidence.add("query.51D_Pos_longitude", "-73.935242")
@@ -40,7 +40,7 @@ fd.process()
 print(fd.location.town.value())
 ```
 
-For more in-depth examples, check out the [examples](https://51degrees.com/documentation/4.2/_examples__reverse_geocoding__index.html) page in the documentation.
+For more in-depth examples, check out the [examples](https://51degrees.com/documentation/_examples__reverse_geocoding__index.html) page in the documentation.
 
 ### From GitHub
 
