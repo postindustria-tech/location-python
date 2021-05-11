@@ -30,14 +30,14 @@ steps:
     preferBundledVersion: false
 
 # Add a tag to the git repository with the version number.
-#- task: ATP.ATP-GitTag.GitTag.GitTag@5
-#  displayName: 'Tag Repo With Version Number'
-#  inputs:
-#    tagUser: 'Azure DevOps'
-#    tagEmail: 'CIUser@51Degrees.com'
+- task: ATP.ATP-GitTag.GitTag.GitTag@5
+  displayName: 'Tag Repo With Version Number'
+  inputs:
+    tagUser: 'Azure DevOps'
+    tagEmail: 'CIUser@51Degrees.com'
 # Only create the tag if we're on master, develop or a release branch.
 # This can be overridden by setting the 'ForceTagCommit' variable to true.
-#  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), eq('true', variables['ForceTagCommit'])))))
+  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), eq('true', variables['ForceTagCommit'])))))
   
 # Set python version to be used to build the packages.
 - task: UsePythonVersion@0
