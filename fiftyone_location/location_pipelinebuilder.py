@@ -31,23 +31,30 @@ class LocationPipelineBuilder(PipelineBuilder):
     
      Internal function for getting evidence keys used by cloud engines
      
+      @type resource_key: string
+      @param resource_key: The 51Degrees cloud service resource key
+      @type location_provider: string
+      @param location_provider: fiftyonedegrees or digitalelement
       @type settings: dict
-      @param settings: Should contain a `resourceKey` and optionally a `cloudEndPoint` url
+      @param settings: Settings for the pipeline. 
+      Can contain a `cloud_endpoint` url
       if overriding the default one. An optional cache can be added by passing an instance of 
       the DataKeyedCache class as a `cache` setting 
-      The pipeline builder can also contain JavaScriptBuilder settings
+      The pipeline builder can also contain javascript_builder_settings settings
       see the documentation for the base PipelineBuilder and JavaScriptBuilder class 
       
     """
-    def __init__(self, settings):
+    def __init__(self, resource_key, location_provider="fiftyonedegrees", settings={}):
 
         super(LocationPipelineBuilder, self).__init__(settings)
 
         # Add specific engines
 
+        settings["resource_key"] = resource_key
+
         self.add(CloudRequestEngine(settings))
 
-        location = LocationCloud(settings)
+        location = LocationCloud(location_provider=location_provider)
 
         if "cache" in settings:
             location.set_cache(settings["cache"])

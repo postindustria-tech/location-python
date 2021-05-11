@@ -34,10 +34,14 @@ import json
 
 # You need to create a resource key at https://configure.51degrees.com
 # and paste it into the code, replacing !!YOUR_RESOURCE_KEY!! below.
+# Alternatively, add a resource_key environment variable
+import os
+if "resource_key" in os.environ:
+    resource_key = os.environ["resource_key"]
+else:
+    resource_key = "!!YOUR_RESOURCE_KEY!!"
 
-resourceKey = "!!YOUR_RESOURCE_KEY!!"
-
-if resourceKey == "!!YOUR_RESOURCE_KEY!!":
+if resource_key == "!!YOUR_RESOURCE_KEY!!":
     print("""
     You need to create a resource key at
     https://configure.51degrees.com and paste it into the code,
@@ -48,11 +52,11 @@ else:
 
     # Here we add some callback settings for the page to make a request with extra evidence from the client side, in this case the Flask /json route we will make below
 
-    javascriptBuilderSettings = {
+    javascript_builder_settings = {
         "endpoint": "/json"
     }
 
-    pipeline = LocationPipelineBuilder({"resourceKey": resourceKey, "javascriptBuilderSettings": javascriptBuilderSettings}).build()
+    pipeline = LocationPipelineBuilder(resource_key=resource_key, settings={"javascript_builder_settings": javascript_builder_settings}).build()
     
     from flask import Flask, request
 

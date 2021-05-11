@@ -29,17 +29,18 @@ class LocationCloud(CloudEngine):
     It takes that raw JSON response and parses it to extract the
     location part. It also uses this data to generate a list of properties
     """
-    def __init__(self, settings = {}):
+    def __init__(self, location_provider="fiftyonedegrees"):
+        """!
+        Constructor for location engine
+        @type location_provider: string
+        @param location_provider: fiftyonedegrees or digitalelement
+        """
 
         super(LocationCloud, self).__init__()
 
-        self.datakey = "location"
-
-        if "locationProvider" in settings:
-            locationProvider = settings["locationProvider"]
-            if locationProvider == "fiftyonedegrees":
-                self.datakey = "location"
-            elif locationProvider == "digitalelement":
-                self.datakey = "location_digitalelement"
-            else:
-                raise Exception("The location provider " + locationProvider + " was not recognized.")
+        if location_provider == "fiftyonedegrees":
+            self.datakey = "location"
+        elif location_provider == "digitalelement":
+            self.datakey = "location_digitalelement"
+        else:
+            raise Exception("The location provider " + location_provider + " was not recognized.")
