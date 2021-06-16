@@ -15,7 +15,6 @@ The Pipeline is a generic web request intelligence and data processing solution 
 
 * Python 3.5+
 * The `flask` python library to run the web examples
-* The `gitversion` python library using `pip install gitversion`
 
 ## Installation and Examples
 

@@ -1,0 +1,111 @@
+# build and test stage template
+
+parameters:
+# Here is the description of the parameters.
+# stageName: Stage name
+# imageName: image on which stage needs to be run
+# architecture: OS architecture i.e. x86, x64
+- name: stageName
+- name: imageName
+- name: architecture
+
+stages:
+
+- stage: ${{ parameters.stageName }}
+  dependsOn: []
+  
+  jobs:
+  - job: Build_and_Test
+    displayName: Build and Test
+
+    variables:
+      - group: InternalKeys
+      # Include shared variables
+      - template: shared-variables.yml
+
+    strategy:
+      matrix:
+        Python 37:
+          pythonVersion: '3.7'
+        Python 38:
+          pythonVersion: '3.8'
+        Python 39:          
+          pythonVersion: '3.9'
+
+    pool:
+      vmImage: ${{ parameters.imageName }}
+      
+    steps:
+      
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+        architecture: ${{ parameters.architecture }}
+        addToPath: True
+      displayName: 'Use Python $(pythonVersion)'
+        
+    - script: |
+        python -m pip install --upgrade pip
+        python -m pip install pylint
+        python -m pip install unittest-xml-reporting
+        python -m pip install coverage
+        python -m pip install certifi
+        python -m pip install jsmin
+        python -m pip install chevron
+        python -m pip install cachetools
+        python -m pip install requests
+      displayName: 'Install dependencies'
+
+    - task: PipAuthenticate@1
+      displayName: 'Pip Authenticate'
+      inputs:
+        # Provide list of feed names which you want to authenticate.
+        # Project scoped feeds must include the project name in addition to the feed name.
+        artifactFeeds: 'pipeline-insider'
+        
+    - script: |
+        python -m pip install fiftyone_pipeline_cloudrequestengine$(pipelineVersion)
+        python -m pip install fiftyone_pipeline_core$(pipelineVersion)
+        python -m pip install fiftyone_pipeline_engines$(pipelineVersion)
+      displayName: 'Install Pipeline Dependencies'
+
+    - script: |
+        python -m pip install ./
+      displayName: 'Install Location Package'
+
+    - bash: |
+        pylint --rcfile=.pylintrc ./fiftyone_location
+        if [ $? -ne 0 ]; then
+          echo "Failed to run pylint on fiftyone_location."
+          exit 1
+        fi          
+      displayName: 'Analyze Python Code Using Pylint'
+
+    - bash: |
+        export resource_key="$(SuperResourceKey)"
+        export FOD_CLOUD_API_URL="$(FOD_CLOUD_API_URL)"
+        echo 'Exporting resource key for cloud tests, resource_key=$(SuperResourceKey)'
+        echo 'Exporting endpoint for cloud tests, FOD_CLOUD_API_URL=$(FOD_CLOUD_API_URL)'
+        
+        coverage run -m xmlrunner discover -s tests -p test*.py -o test-results
+        if [ $? -ne 0 ]; then
+          echo "Failed to run test cases and coverage for fiftyone_location."
+          exit 1
+        fi
+        coverage xml
+      displayName: 'Run Tests'
+     
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: '**/test-results/**'
+        testRunTitle: '${{ parameters.imageName }}-${{ parameters.architecture }}-$(pythonVersion)'
+        searchFolder: '$(System.DefaultWorkingDirectory)'
+        mergeTestResults: false
+        failTaskOnFailedTests: true
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
