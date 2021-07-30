@@ -33,6 +33,8 @@ class LocationPipelineBuilder(PipelineBuilder):
      
       @type resource_key: string
       @param resource_key: The 51Degrees cloud service resource key
+      @type cloud_request_origin: string
+      @param cloud_request_origin: The value to set the Origin header to when making requests to the cloud service
       @type location_provider: string
       @param location_provider: fiftyonedegrees or digitalelement
       @type settings: dict
@@ -45,7 +47,7 @@ class LocationPipelineBuilder(PipelineBuilder):
       
     """
     def __init__(self, resource_key, location_provider="fiftyonedegrees", settings={}):
-
+        
         super(LocationPipelineBuilder, self).__init__(settings)
 
         # Add specific engines
