@@ -20,4 +20,3 @@ jobs:
     secrets:
       token: ${{ secrets.ACCESS_TOKEN }}
       asset-keys: '{"TestResourceKey": "${{ secrets.SUPER_RESOURCE_KEY}}", "PypiToken": "${{ secrets.PYPI_TOKEN }}"}'
-
