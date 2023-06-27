@@ -1,21 +1,52 @@
-import setuptools
+# *********************************************************************
+# This Original Work is copyright of 51 Degrees Mobile Experts Limited.
+# Copyright 2022 51 Degrees Mobile Experts Limited, Davidson House,
+# Forbury Square, Reading, Berkshire, United Kingdom RG1 3EU.
+#
+# This Original Work is licensed under the European Union Public Licence
+# (EUPL) v.1.2 and is subject to its terms as set out below.
+#
+# If a copy of the EUPL was not distributed with this file, You can obtain
+# one at https://opensource.org/licenses/EUPL-1.2.
+#
+# The 'Compatible Licences' set out in the Appendix to the EUPL (as may be
+# amended by the European Commission) shall be deemed incompatible for
+# the purposes of the Work and the provisions of the compatibility
+# clause in Article 5 of the EUPL shall not apply.
+# 
+# If using the Work as, or as part of, a network application, by 
+# including the attribution notice(s) required under Article 5 of the EUPL
+# in the end user terms of the application under an appropriate heading, 
+# such notice(s) shall fulfill the requirements of that article.
+# ********************************************************************* 
 
-# read the contents of your README file
-from os import path
-this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'readme.md'), encoding='utf-8') as f:
-    long_description = f.read()
+import setuptools
+import os
+import io
+
+# Read a text file and return the content as a string.
+def read(file_name):
+
+    """Read a text file and return the content as a string."""
+    try:
+        with io.open(
+            os.path.join(os.path.dirname(__file__), file_name), encoding="utf-8"
+        ) as f:
+            return f.read()
+    except:
+        return ""
 
 setuptools.setup(
     name="fiftyone_location",
-    version="4.0.1",
+	version=read("version.txt"),
     author="51Degrees",
-    url="http://51degrees.com/",
+    author_email="support@51degrees.com",
+    url="https://51degrees.com/",
     description=("The 51Degrees Pipeline API is a generic web request intelligence and data processing solution with the ability to add a range of 51Degrees and/or custom plug ins (Engines). "
     "This repository contains the geo-location engines for the Python implementation of the Pipeline API."),
-    long_description=long_description,
+    long_description=read("readme.md"),
     long_description_content_type='text/markdown',
-    python_requires='>=2.7',
+    python_requires='>=3.5',
     packages=["fiftyone_location"],
     install_requires=["fiftyone_pipeline_core", "fiftyone_pipeline_engines", "fiftyone_pipeline_cloudrequestengine"],
     license="EUPL-1.2",

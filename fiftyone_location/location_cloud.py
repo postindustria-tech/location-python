@@ -1,10 +1,10 @@
 # *********************************************************************
 # This Original Work is copyright of 51 Degrees Mobile Experts Limited.
-# Copyright 2019 51 Degrees Mobile Experts Limited, 5 Charlotte Close,
-# Caversham, Reading, Berkshire, United Kingdom RG4 7BY.
+# Copyright 2022 51 Degrees Mobile Experts Limited, Davidson House,
+# Forbury Square, Reading, Berkshire, United Kingdom RG1 3EU.
 #
-# This Original Work is licensed under the European Union Public Licence (EUPL) 
-# v.1.2 and is subject to its terms as set out below.
+# This Original Work is licensed under the European Union Public Licence
+# (EUPL) v.1.2 and is subject to its terms as set out below.
 #
 # If a copy of the EUPL was not distributed with this file, You can obtain
 # one at https://opensource.org/licenses/EUPL-1.2.
@@ -18,33 +18,32 @@
 # including the attribution notice(s) required under Article 5 of the EUPL
 # in the end user terms of the application under an appropriate heading, 
 # such notice(s) shall fulfill the requirements of that article.
-# ********************************************************************
+# ********************************************************************* 
 
 from fiftyone_pipeline_cloudrequestengine.cloudengine import CloudEngine
 
-
-"""
- The deviceDetction cloud engine requires the 51Degrees
- cloudRequestEngine to be placed in a pipeline before it.
- It takes that raw JSON response and parses it to extract the
- device part. It also uses this data to generate a list of properties
-"""
 class LocationCloud(CloudEngine):
-
-    def __init__(self, settings = {}):
+    """!
+    The location cloud engine requires the 51Degrees
+    cloudRequestEngine to be placed in a pipeline before it.
+    It takes that raw JSON response and parses it to extract the
+    location part. It also uses this data to generate a list of properties
+    """
+    def __init__(self, location_provider="fiftyonedegrees"):
+        """!
+        Constructor for location engine
+        @type location_provider: string
+        @param location_provider: fiftyonedegrees or digitalelement
+        """
 
         super(LocationCloud, self).__init__()
 
-        self.datakey = "location"
-
-        if "locationProvider" in settings:
-            locationProvider = settings["locationProvider"]
-            if locationProvider == "fiftyonedegrees":
-                self.datakey = "location"
-            elif locationProvider == "digitalelement":
-                self.datakey = "location_digitalelement"
-            else:
-                raise Exception("The location provider " + locationProvider + " was not recognized.")
+        if location_provider == "fiftyonedegrees":
+            self.datakey = "location"
+        elif location_provider == "digitalelement":
+            self.datakey = "location_digitalelement"
+        else:
+            raise Exception("The location provider " + location_provider + " was not recognized.")
 
     def on_registration(self, pipeline):
         available_properties = pipeline.flow_elements_list.get(

@@ -1,7 +1,9 @@
+# 51Degrees Geo-Location Engines
+
 ![51Degrees](https://51degrees.com/DesktopModules/FiftyOne/Distributor/Logo.ashx?utm_source=github&utm_medium=repository&utm_content=readme_main&utm_campaign=python-open-source) 
 **v4 Location Python**
 
-[Pipeline Documentation](https://51degrees.com/documentation/4.1/index.html "Complete documentation")
+[Developer Documentation](https://51degrees.com/location-python/index.html "Developer documentation")
 
 ## Introduction
 
@@ -9,16 +11,16 @@ This project contains the geo-location engines for the Python implementation of 
 
 The Pipeline is a generic web request intelligence and data processing solution with the ability to add a range of 51Degrees and/or custom plug ins (Engines) 
 
-## Requirements
+## Dependencies
 
-* Python 2.7 or Python 3
-* The `flask` python library to run the web examples
+For runtime dependencies, see our [dependencies](http://51degrees.com/documentation/_info__dependencies.html) page.
+The [tested versions](https://51degrees.com/documentation/_info__tested_versions.html) page shows the Python versions that we currently test against. The software may run fine against other versions, but additional caution should be applied.
 
 ## Installation and Examples
 
 ### From PyPI
 
-`pip install fiftyone_devicedetection`
+`pip install fiftyone-location`
 
 You can confirm this is working with the following micro-example.
 
@@ -29,7 +31,7 @@ You can confirm this is working with the following micro-example.
 
 ```
 from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
-pipeline = LocationPipelineBuilder({"resourceKey": "YOUR_RESOURCE_KEY"}).build()
+pipeline = LocationPipelineBuilder(resource_key="YOUR_RESOURCE_KEY").build()
 fd = pipeline.create_flowdata()
 fd.evidence.add("query.51D_Pos_latitude", "40.730610")
 fd.evidence.add("query.51D_Pos_longitude", "-73.935242")
@@ -37,20 +39,25 @@ fd.process()
 print(fd.location.town.value())
 ```
 
-For more in-depth examples, check out the [examples](https://51degrees.com/documentation/4.1/_examples__reverse_geocoding__index.html) page in the documentation.
+For more in-depth examples, the following are included with this repository:
+
+| Example                                | Description |
+| gettingstarted.py                      | Demonstrates the basics of using the service to get postal address information from coordinates. |
+| web.py                                 | Shows how to use the location service as part of a simple website. |
 
 ### From GitHub
 
 If you've cloned the GitHub repository, you will be able to run the examples directly:
 
-`python3 -m examples.cloud.gettingstarted`
+`python -m examples.cloud.gettingstarted`
 
-To run the web example:
+To run the web example navigate into Examples folder:
 
 #### Linux
 
-Execute `export FLASK_APP=` with the name of the web example file, then `flask run`.
+Execute `export FLASK_APP=web` where `web` is the example file, and start your application via `flask run`.
 
 #### Windows
 
-Execute `$env:FLASK_APP = "x"` with the name of the example file, then `flask run`.
+Execute `$env:FLASK_APP = "web"` where `web` is the example file, and start your application via `flask run`.
+

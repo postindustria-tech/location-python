@@ -1,10 +1,10 @@
 # *********************************************************************
 # This Original Work is copyright of 51 Degrees Mobile Experts Limited.
-# Copyright 2019 51 Degrees Mobile Experts Limited, 5 Charlotte Close,
-# Caversham, Reading, Berkshire, United Kingdom RG4 7BY.
+# Copyright 2022 51 Degrees Mobile Experts Limited, Davidson House,
+# Forbury Square, Reading, Berkshire, United Kingdom RG1 3EU.
 #
-# This Original Work is licensed under the European Union Public Licence (EUPL) 
-# v.1.2 and is subject to its terms as set out below.
+# This Original Work is licensed under the European Union Public Licence
+# (EUPL) v.1.2 and is subject to its terms as set out below.
 #
 # If a copy of the EUPL was not distributed with this file, You can obtain
 # one at https://opensource.org/licenses/EUPL-1.2.
@@ -18,16 +18,13 @@
 # including the attribution notice(s) required under Article 5 of the EUPL
 # in the end user terms of the application under an appropriate heading, 
 # such notice(s) shall fulfill the requirements of that article.
-# ********************************************************************
+# ********************************************************************* 
 
-"""
-@example cloud/web.py
-
-@include{doc} example-web-integration.txt
-
-@include{doc} example-require-resourcekey.txt
-
-"""
+## @example cloud/web.py
+# 
+# @include{doc} example-web-integration.txt
+# 
+# @include{doc} example-require-resourcekey.txt
 
 from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
 from fiftyone_pipeline_core.web import webevidence
@@ -37,10 +34,14 @@ import json
 
 # You need to create a resource key at https://configure.51degrees.com
 # and paste it into the code, replacing !!YOUR_RESOURCE_KEY!! below.
+# Alternatively, add a resource_key environment variable
+import os
+if "resource_key" in os.environ:
+    resource_key = os.environ["resource_key"]
+else:
+    resource_key = "!!YOUR_RESOURCE_KEY!!"
 
-resourceKey = "!!YOUR_RESOURCE_KEY!!"
-
-if resourceKey == "!!YOUR_RESOURCE_KEY!!":
+if resource_key == "!!YOUR_RESOURCE_KEY!!":
     print("""
     You need to create a resource key at
     https://configure.51degrees.com and paste it into the code,
@@ -51,11 +52,11 @@ else:
 
     # Here we add some callback settings for the page to make a request with extra evidence from the client side, in this case the Flask /json route we will make below
 
-    javascriptBuilderSettings = {
+    javascript_builder_settings = {
         "endpoint": "/json"
     }
 
-    pipeline = LocationPipelineBuilder({"resourceKey": resourceKey, "javascriptBuilderSettings": javascriptBuilderSettings}).build()
+    pipeline = LocationPipelineBuilder(resource_key=resource_key, settings={"javascript_builder_settings": javascript_builder_settings}).build()
     
     from flask import Flask, request
 

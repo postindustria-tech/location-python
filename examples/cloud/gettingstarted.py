@@ -1,10 +1,10 @@
 # *********************************************************************
 # This Original Work is copyright of 51 Degrees Mobile Experts Limited.
-# Copyright 2019 51 Degrees Mobile Experts Limited, 5 Charlotte Close,
-# Caversham, Reading, Berkshire, United Kingdom RG4 7BY.
+# Copyright 2022 51 Degrees Mobile Experts Limited, Davidson House,
+# Forbury Square, Reading, Berkshire, United Kingdom RG1 3EU.
 #
-# This Original Work is licensed under the European Union Public Licence (EUPL) 
-# v.1.2 and is subject to its terms as set out below.
+# This Original Work is licensed under the European Union Public Licence
+# (EUPL) v.1.2 and is subject to its terms as set out below.
 #
 # If a copy of the EUPL was not distributed with this file, You can obtain
 # one at https://opensource.org/licenses/EUPL-1.2.
@@ -18,21 +18,19 @@
 # including the attribution notice(s) required under Article 5 of the EUPL
 # in the end user terms of the application under an appropriate heading, 
 # such notice(s) shall fulfill the requirements of that article.
-# ********************************************************************
+# ********************************************************************* 
 
-"""
-@example cloud/gettingStarted.py
 
-@include{doc} example-require-resourcekey.txt
-
-Expected output:
-```
-What country is at coordinates:-0.9822207999999999, 51.458048?
-United Kingdom
-
-```
-
-"""
+## @example cloud/gettingstarted.py
+# 
+# @include{doc} example-require-resourcekey.txt
+# 
+# Expected output:
+# ```
+# What country is at coordinates:-0.9822207999999999, 51.458048?
+# United Kingdom
+# 
+# ```
 
 from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
 
@@ -40,10 +38,14 @@ from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
 
 # You need to create a resource key at https://configure.51degrees.com
 # and paste it into the code, replacing !!YOUR_RESOURCE_KEY!! below.
+# Alternatively, add a resource_key environment variable
+import os
+if "resource_key" in os.environ:
+    resource_key = os.environ["resource_key"]
+else:
+    resource_key = "!!YOUR_RESOURCE_KEY!!"
 
-resourceKey = "!!YOUR_RESOURCE_KEY!!"
-
-if resourceKey == "!!YOUR_RESOURCE_KEY!!":
+if resource_key == "!!YOUR_RESOURCE_KEY!!":
     print("""
     You need to create a resource key at
     https://configure.51degrees.com and paste it into the code,
@@ -52,27 +54,27 @@ if resourceKey == "!!YOUR_RESOURCE_KEY!!":
     """)
 else:
 
-    pipeline = LocationPipelineBuilder({"resourceKey": resourceKey}).build()
+    pipeline = LocationPipelineBuilder(resource_key=resource_key).build()
 
     # We create a FlowData object from the pipeline
     # this is used to add evidence to and then process
 
-    flowData = pipeline.create_flowdata()
+    flow_data = pipeline.create_flowdata()
 
     # Here we add a longitude and latitude as evidence
 
     latitude = "51.458048"
     longitude = "-0.9822207999999999"
 
-    flowData.evidence.add("query.51D_Pos_latitude", latitude)
-    flowData.evidence.add("query.51D_Pos_longitude", longitude)
+    flow_data.evidence.add("query.51D_Pos_latitude", latitude)
+    flow_data.evidence.add("query.51D_Pos_longitude", longitude)
 
     # Now we process the FlowData
 
-    flowData.process()
+    flow_data.process()
 
     print("What country is at coordinates:" + longitude + ", " + latitude + "?")
-    if flowData.location.country.has_value():
-        print(flowData.location.country.value())
+    if flow_data.location.country.has_value():
+        print(flow_data.location.country.value())
     else:
-        print(flowData.location.no_value_message())
+        print(flow_data.location.no_value_message())
