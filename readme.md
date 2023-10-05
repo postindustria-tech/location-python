@@ -60,4 +60,3 @@ Execute `export FLASK_APP=web` where `web` is the example file, and start your a
 #### Windows
 
 Execute `$env:FLASK_APP = "web"` where `web` is the example file, and start your application via `flask run`.
-
