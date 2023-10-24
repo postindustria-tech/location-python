@@ -24,7 +24,7 @@ import os
 import unittest
 
 from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
-from test_helper import *
+from .test_helper import *
 
 location_LAT = '51.4578261';
 location_LON = '-0.975922996290084';
