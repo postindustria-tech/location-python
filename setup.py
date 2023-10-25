@@ -46,7 +46,7 @@ setuptools.setup(
     "This repository contains the geo-location engines for the Python implementation of the Pipeline API."),
     long_description=read("readme.md"),
     long_description_content_type='text/markdown',
-    python_requires='>=3.5',
+    python_requires=">=3.8",
     packages=["fiftyone_location"],
     install_requires=["fiftyone_pipeline_core", "fiftyone_pipeline_engines", "fiftyone_pipeline_cloudrequestengine"],
     license="EUPL-1.2",
