@@ -20,6 +20,17 @@
 # such notice(s) shall fulfill the requirements of that article.
 # ********************************************************************* 
 
+## @example cloud/web.py
+# 
+# This example is designed to output location data using the client-side evidence feature of the pipeline.
+# 
+# This example uses the client-side evidence feature of the Pipeline to get location information from the client.
+# This information is used to populate properties containing JavaScript snippets, which are then bundled together into a single JavaScript block by the 'JsonBundler' and 'JavaScriptBuilder' elements. 
+# This JavaScript is then used to obtain the additional evidence from the client and pass it back to the server.
+# The Pipeline running on the server then processes this evidence to populate a new JSON result object that is returned to the client. 
+#
+# This example is available in full on [GitHub](https://github.com/51Degrees/location-python/blob/main/examples/cloud/web.py)
+
 from fiftyone_location.location_pipelinebuilder import LocationPipelineBuilder
 from fiftyone_pipeline_core.web import webevidence
 import json
