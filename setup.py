@@ -42,8 +42,7 @@ setuptools.setup(
     author="51Degrees Engineering",
     author_email="engineering@51degrees.com",
     url="https://51degrees.com/",
-    description=("The 51Degrees Pipeline API is a generic web request intelligence and data processing solution with the ability to add a range of 51Degrees and/or custom plug ins (Engines). "
-    "This repository contains the geo-location engines for the Python implementation of the Pipeline API."),
+    description=("51Degrees Geolocation performs reverse geocoding (using longitude and latitude information) to populate postal addresses."),
     long_description=read("readme.md"),
     long_description_content_type='text/markdown',
     python_requires=">=3.8",
